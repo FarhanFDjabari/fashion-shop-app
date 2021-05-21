@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fashion_shop/model/product_model.dart';
 import 'package:fashion_shop/model/transaction_model.dart';
 import 'package:fashion_shop/pages/cart_screen.dart';
 import 'package:fashion_shop/pages/transaction_screen.dart';
@@ -20,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool showFavoriteOnly = false;
+  bool searchMode = false;
 
   FutureOr onGoBack(dynamic value) {
     setState(() {});
@@ -159,8 +161,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.grey.withOpacity(0.1)),
                   child: Center(
                     child: TextField(
-                      enabled: false,
                       autofocus: false,
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          setState(() {
+                            searchMode = true;
+                            searchResult = searchProduct(value);
+                          });
+                        } else {
+                          setState(() {
+                            searchMode = false;
+                          });
+                        }
+                      },
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         prefixIcon: Icon(
@@ -242,6 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   category: category,
                   favoriteMode: showFavoriteOnly,
                   callback: onGoBack,
+                  searchMode: searchMode,
                 ),
               ],
             ),

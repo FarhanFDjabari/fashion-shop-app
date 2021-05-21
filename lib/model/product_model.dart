@@ -135,6 +135,7 @@ var productList = [
 ];
 
 var favoriteProductList = [];
+var searchResult = [];
 
 void insertFavorite(ProductModel product) {
   if (!favoriteProductList.contains(product)) {
@@ -146,4 +147,8 @@ void removeFromFavorite(ProductModel product) {
   if (favoriteProductList.contains(product)) {
     favoriteProductList.remove(product);
   }
+}
+
+List<ProductModel> searchProduct(String query) {
+  return productList.where((data) => data.name.contains(query)).toList();
 }
