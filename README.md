@@ -34,8 +34,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 This project is maintained by:
 
-**FarhanFDjabari**
-- <https://github.com/FarhanFDjabari>
+**[FarhanFDjabari](https://github.com/FarhanFDjabari)**
 
 ## Special Thanks
 
