@@ -40,7 +40,7 @@ This project is maintained by:
 ## Special Thanks
 
 * To [Anastasia](https://dribbble.com/anastasia-tino)
-go check her [ui design on dribble] (https://dribbble.com/shots/14398650-Fashion-online-shop-Mobile-App)
+go check her [ui design on dribble](https://dribbble.com/shots/14398650-Fashion-online-shop-Mobile-App)
 
 ## Copyright
 
