@@ -1,18 +1,17 @@
-<p align="center">
-  <h3 align="center">Fashion Shop App</h3>
-
-  <p align="center">
-    A Fashion Shop App project created in flutter to fulfill final assignment for dicoding flutter course.
-    <br>
-    This app only supports mobile devices.
-    <br>
-    <br>
-    <a href="https://github.com/FarhanFDjabari/fashion-shop-app/issues/new">Report bug</a>
-    ·
-    <a href="https://github.com/FarhanFDjabari/fashion-shop-app/issues/new">Request feature</a>
-  </p>
+<h3 align="center">Fashion Shop App</h3>
   
+<p align="center">
+  A Fashion Shop App project created in flutter to fulfill final assignment for dicoding flutter course.
+  <br>
+  This app only supports mobile devices.
+  <br>
+  <br>
+  <a href="https://github.com/FarhanFDjabari/fashion-shop-app/issues/new">Report bug</a>
+  ·
+  <a href="https://github.com/FarhanFDjabari/fashion-shop-app/issues/new">Request feature</a>
 </p>
+  
+
 
 ## Table of contents
 
