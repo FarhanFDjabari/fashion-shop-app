@@ -24,7 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
   bool searchMode = false;
 
   FutureOr onGoBack(dynamic value) {
-    setState(() {});
+    setState(() {
+      if (category != 'All') categoryResult = categoryList(category);
+    });
   }
 
   @override

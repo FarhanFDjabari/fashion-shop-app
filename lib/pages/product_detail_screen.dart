@@ -265,15 +265,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         size: chosenSize,
                       );
                       setState(() {
-                        if (chosenSize != null || chosenSize != null) {
-                          insertCart(cartItem);
-                        } else {
+                        if (chosenSize == null || chosenColor == null) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text('Fill all the required fields'),
                               duration: Duration(seconds: 3),
                             ),
                           );
+                        } else {
+                          insertCart(cartItem);
                         }
                       });
                     },

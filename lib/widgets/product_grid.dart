@@ -66,180 +66,99 @@ class _ProductGridState extends State<ProductGrid> {
                       ),
                       itemCount: widget.favoriteMode
                           ? favoriteProductList.length
-                          : searchResult.length,
+                          : widget.category != 'All'
+                              ? categoryResult.length
+                              : searchResult.length,
                       itemBuilder: (context, index) {
-                        if (widget.category != 'All' && !widget.favoriteMode) {
-                          if (searchResult[index].category == widget.category) {
-                            return InkWell(
-                              borderRadius: BorderRadius.circular(15),
-                              onTap: () => Navigator.of(context)
-                                  .push(
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductDetailScreen(
-                                        product: widget.favoriteMode
-                                            ? favoriteProductList[index]
+                        return InkWell(
+                          borderRadius: BorderRadius.circular(15),
+                          onTap: () => Navigator.of(context)
+                              .push(
+                                MaterialPageRoute(
+                                  builder: (context) => ProductDetailScreen(
+                                    product: widget.favoriteMode
+                                        ? favoriteProductList[index]
+                                        : widget.category != 'All'
+                                            ? categoryResult[index]
                                             : searchResult[index],
-                                      ),
+                                  ),
+                                ),
+                              )
+                              .then(widget.callback),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  color: Colors.grey.shade300,
+                                  child: Container(
+                                    width: 180,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
                                     ),
-                                  )
-                                  .then(widget.callback),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Card(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      color: Colors.grey.shade300,
-                                      child: Container(
-                                        width: 180,
-                                        height: 100,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Stack(
-                                          children: [
-                                            Center(
-                                              child: Image.asset(
-                                                widget.favoriteMode
-                                                    ? favoriteProductList[index]
+                                    child: Stack(
+                                      children: [
+                                        Center(
+                                          child: Image.asset(
+                                            widget.favoriteMode
+                                                ? favoriteProductList[index]
+                                                    .assetImages
+                                                : widget.category != 'All'
+                                                    ? categoryResult[index]
                                                         .assetImages
                                                     : searchResult[index]
                                                         .assetImages,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                            Positioned(
-                                              bottom: 5,
-                                              right: 5,
-                                              child: FavoriteButton(
-                                                product: widget.favoriteMode
-                                                    ? favoriteProductList[index]
-                                                    : searchResult[index],
-                                                isFavorite: widget.favoriteMode,
-                                              ),
-                                            ),
-                                          ],
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
-                                      ),
+                                        Positioned(
+                                          bottom: 5,
+                                          right: 5,
+                                          child: FavoriteButton(
+                                            product: widget.favoriteMode
+                                                ? favoriteProductList[index]
+                                                : widget.category != 'All'
+                                                    ? categoryResult[index]
+                                                    : searchResult[index],
+                                            isFavorite: widget.favoriteMode,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    SizedBox(height: 5),
-                                    Text(
-                                      widget.favoriteMode
-                                          ? favoriteProductList[index].name
-                                          : searchResult[index].name,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                    Text(
-                                      widget.favoriteMode
-                                          ? "Rp ${favoriteProductList[index].price.toString()}"
-                                          : "Rp ${searchResult[index].price.toString()}",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          } else {
-                            return Container(
-                              margin: EdgeInsets.all(8.0),
-                              width: 180,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                color: Colors.grey.shade100,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            );
-                          }
-                        } else {
-                          return InkWell(
-                            borderRadius: BorderRadius.circular(15),
-                            onTap: () => Navigator.of(context)
-                                .push(
-                                  MaterialPageRoute(
-                                    builder: (context) => ProductDetailScreen(
-                                      product: widget.favoriteMode
-                                          ? favoriteProductList[index]
-                                          : searchResult[index],
-                                    ),
+                                SizedBox(height: 5),
+                                Text(
+                                  widget.favoriteMode
+                                      ? favoriteProductList[index].name
+                                      : widget.category != 'All'
+                                          ? categoryResult[index].name
+                                          : searchResult[index].name,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
                                   ),
-                                )
-                                .then(widget.callback),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    color: Colors.grey.shade300,
-                                    child: Container(
-                                      width: 180,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: Stack(
-                                        children: [
-                                          Center(
-                                            child: Image.asset(
-                                              widget.favoriteMode
-                                                  ? favoriteProductList[index]
-                                                      .assetImages
-                                                  : searchResult[index]
-                                                      .assetImages,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                          Positioned(
-                                            bottom: 5,
-                                            right: 5,
-                                            child: FavoriteButton(
-                                              product: widget.favoriteMode
-                                                  ? favoriteProductList[index]
-                                                  : searchResult[index],
-                                              isFavorite: widget.favoriteMode,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                ),
+                                Text(
+                                  widget.favoriteMode
+                                      ? "Rp ${favoriteProductList[index].price.toString()}"
+                                      : widget.category != 'All'
+                                          ? "Rp ${categoryResult[index].price.toString()}"
+                                          : "Rp ${searchResult[index].price.toString()}",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
                                   ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    widget.favoriteMode
-                                        ? favoriteProductList[index].name
-                                        : searchResult[index].name,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  Text(
-                                    widget.favoriteMode
-                                        ? "Rp ${favoriteProductList[index].price.toString()}"
-                                        : "Rp ${searchResult[index].price.toString()}",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          );
-                        }
+                          ),
+                        );
                       },
                     )
                   : GridView.builder(
@@ -250,180 +169,99 @@ class _ProductGridState extends State<ProductGrid> {
                       ),
                       itemCount: widget.favoriteMode
                           ? favoriteProductList.length
-                          : productList.length,
+                          : widget.category != 'All'
+                              ? categoryResult.length
+                              : productList.length,
                       itemBuilder: (context, index) {
-                        if (widget.category != 'All' && !widget.favoriteMode) {
-                          if (productList[index].category == widget.category) {
-                            return InkWell(
-                              borderRadius: BorderRadius.circular(15),
-                              onTap: () => Navigator.of(context)
-                                  .push(
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductDetailScreen(
-                                        product: widget.favoriteMode
-                                            ? favoriteProductList[index]
+                        return InkWell(
+                          borderRadius: BorderRadius.circular(15),
+                          onTap: () => Navigator.of(context)
+                              .push(
+                                MaterialPageRoute(
+                                  builder: (context) => ProductDetailScreen(
+                                    product: widget.favoriteMode
+                                        ? favoriteProductList[index]
+                                        : widget.category != 'All'
+                                            ? categoryResult[index]
                                             : productList[index],
-                                      ),
+                                  ),
+                                ),
+                              )
+                              .then(widget.callback),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  color: Colors.grey.shade300,
+                                  child: Container(
+                                    width: 180,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
                                     ),
-                                  )
-                                  .then(widget.callback),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Card(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      color: Colors.grey.shade300,
-                                      child: Container(
-                                        width: 180,
-                                        height: 100,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: Stack(
-                                          children: [
-                                            Center(
-                                              child: Image.asset(
-                                                widget.favoriteMode
-                                                    ? favoriteProductList[index]
+                                    child: Stack(
+                                      children: [
+                                        Center(
+                                          child: Image.asset(
+                                            widget.favoriteMode
+                                                ? favoriteProductList[index]
+                                                    .assetImages
+                                                : widget.category != 'All'
+                                                    ? categoryResult[index]
                                                         .assetImages
                                                     : productList[index]
                                                         .assetImages,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                            Positioned(
-                                              bottom: 5,
-                                              right: 5,
-                                              child: FavoriteButton(
-                                                product: widget.favoriteMode
-                                                    ? favoriteProductList[index]
-                                                    : productList[index],
-                                                isFavorite: widget.favoriteMode,
-                                              ),
-                                            ),
-                                          ],
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
-                                      ),
+                                        Positioned(
+                                          bottom: 5,
+                                          right: 5,
+                                          child: FavoriteButton(
+                                            product: widget.favoriteMode
+                                                ? favoriteProductList[index]
+                                                : widget.category != 'All'
+                                                    ? categoryResult[index]
+                                                    : productList[index],
+                                            isFavorite: widget.favoriteMode,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    SizedBox(height: 5),
-                                    Text(
-                                      widget.favoriteMode
-                                          ? favoriteProductList[index].name
-                                          : productList[index].name,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                    Text(
-                                      widget.favoriteMode
-                                          ? "Rp ${favoriteProductList[index].price.toString()}"
-                                          : "Rp ${productList[index].price.toString()}",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          } else {
-                            return Container(
-                              margin: EdgeInsets.all(8.0),
-                              width: 180,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                color: Colors.grey.shade100,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            );
-                          }
-                        } else {
-                          return InkWell(
-                            borderRadius: BorderRadius.circular(15),
-                            onTap: () => Navigator.of(context)
-                                .push(
-                                  MaterialPageRoute(
-                                    builder: (context) => ProductDetailScreen(
-                                      product: widget.favoriteMode
-                                          ? favoriteProductList[index]
-                                          : productList[index],
-                                    ),
+                                SizedBox(height: 5),
+                                Text(
+                                  widget.favoriteMode
+                                      ? favoriteProductList[index].name
+                                      : widget.category != 'All'
+                                          ? categoryResult[index].name
+                                          : productList[index].name,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
                                   ),
-                                )
-                                .then(widget.callback),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    color: Colors.grey.shade300,
-                                    child: Container(
-                                      width: 180,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      child: Stack(
-                                        children: [
-                                          Center(
-                                            child: Image.asset(
-                                              widget.favoriteMode
-                                                  ? favoriteProductList[index]
-                                                      .assetImages
-                                                  : productList[index]
-                                                      .assetImages,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                          Positioned(
-                                            bottom: 5,
-                                            right: 5,
-                                            child: FavoriteButton(
-                                              product: widget.favoriteMode
-                                                  ? favoriteProductList[index]
-                                                  : productList[index],
-                                              isFavorite: widget.favoriteMode,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                ),
+                                Text(
+                                  widget.favoriteMode
+                                      ? "Rp ${favoriteProductList[index].price.toString()}"
+                                      : widget.category != 'All'
+                                          ? "Rp ${categoryResult[index].price.toString()}"
+                                          : "Rp ${productList[index].price.toString()}",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
                                   ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    widget.favoriteMode
-                                        ? favoriteProductList[index].name
-                                        : productList[index].name,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  Text(
-                                    widget.favoriteMode
-                                        ? "Rp ${favoriteProductList[index].price.toString()}"
-                                        : "Rp ${productList[index].price.toString()}",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          );
-                        }
+                          ),
+                        );
                       },
                     ),
     );
